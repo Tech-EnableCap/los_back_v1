@@ -91,6 +91,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'los_main',
+        'CLIENT': {
+            'host': 'localhost',
+            'port': 27017,
+        }
     }
 }
 
@@ -136,7 +140,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'build/static')
 ]
 
-MEDIA_URL='/media/'
+MEDIA_URL='s3://los-upl-data/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 REST_FRAMEWORK={

@@ -41,6 +41,7 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
 	is_staff=models.BooleanField(default=True)
 	is_sales_op=models.BooleanField(default=False)
 	is_credit_op=models.BooleanField(default=False)
+	is_admin=models.BooleanField(default=False)
 
 	dob=models.DateField(blank=True,null=True)
 	gender=models.CharField(max_length=50,null=True)
@@ -81,6 +82,9 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
 
 	flag=models.CharField(max_length=50,default=0)
 	loan_flag=models.CharField(max_length=50,blank=True,default="not sbmt")
+	coapp_flag=models.CharField(max_length=50,blank=True,default="not sbmt")
+
+	pan_status=models.CharField(max_length=255,default='not_chked')
 
 	objects=UserAccountManager()
 
@@ -106,6 +110,7 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
 
 class Archive(models.Model):
 	applicant_id=models.ForeignKey(UserAccount,related_name='id_ar',on_delete=models.CASCADE)
+	coapp_id=models.ForeignKey(UserAccount,related_name='id_ar_c',on_delete=models.CASCADE)
 	inst_name=models.TextField(null=True)
 	inst_type=models.TextField(null=True)
 	inst_location=models.TextField(null=True)
@@ -120,6 +125,7 @@ class Archive(models.Model):
 
 class ArchiveReject(models.Model):
 	applicant_id=models.ForeignKey(UserAccount,related_name='id_re',on_delete=models.CASCADE)
+	coapp_id=models.ForeignKey(UserAccount,related_name='id_re_c',on_delete=models.CASCADE)
 	inst_name=models.TextField(null=True)
 	inst_type=models.TextField(null=True)
 	inst_location=models.TextField(null=True)
@@ -134,6 +140,7 @@ class ArchiveReject(models.Model):
 
 class LoanForms(models.Model):
 	applicant_id=models.ForeignKey(UserAccount,related_name='id_n',on_delete=models.CASCADE)
+	co_applicant_id=models.ForeignKey(UserAccount,related_name='id_c',default='',on_delete=models.CASCADE)
 	email=models.EmailField(max_length=255,null=True)
 	inst_name=models.TextField(null=True)
 	inst_type=models.TextField(null=True)
@@ -166,20 +173,73 @@ class LoanForms(models.Model):
 	file23=models.FileField(upload_to=fileName,blank=True,null=True)
 	file24=models.FileField(upload_to=fileName,blank=True,null=True)
 
-	coapp_required=models.BooleanField(default=False)
+
+	file25=models.FileField(upload_to=fileName,blank=True,null=True)
+	file26=models.FileField(upload_to=fileName,blank=True,null=True)
+	file27=models.FileField(upload_to=fileName,blank=True,null=True)
+	file28=models.FileField(upload_to=fileName,blank=True,null=True)
+	file29=models.FileField(upload_to=fileName,blank=True,null=True)
+	file30=models.FileField(upload_to=fileName,blank=True,null=True)
+	file31=models.FileField(upload_to=fileName,blank=True,null=True)
+	file32=models.FileField(upload_to=fileName,blank=True,null=True)
+	file33=models.FileField(upload_to=fileName,blank=True,null=True)
+	file34=models.FileField(upload_to=fileName,blank=True,null=True)
+	file35=models.FileField(upload_to=fileName,blank=True,null=True)
+	file36=models.FileField(upload_to=fileName,blank=True,null=True)
+	file37=models.FileField(upload_to=fileName,blank=True,null=True)
+	file38=models.FileField(upload_to=fileName,blank=True,null=True)
+	file39=models.FileField(upload_to=fileName,blank=True,null=True)
+	file40=models.FileField(upload_to=fileName,blank=True,null=True)
+	file41=models.FileField(upload_to=fileName,blank=True,null=True)
+	file42=models.FileField(upload_to=fileName,blank=True,null=True)
+	file43=models.FileField(upload_to=fileName,blank=True,null=True)
+	file44=models.FileField(upload_to=fileName,blank=True,null=True)
+
+
+	coapp_required=models.CharField(max_length=255,default='false')
 	coapp_first_name=models.CharField(max_length=255,null=True)
 	coapp_last_name=models.CharField(max_length=255,null=True)
 	coapp_phone=models.CharField(max_length=255,null=True)
 	relation_to_applicant=models.CharField(max_length=50,null=True)
-	applicant_bank_acc=models.TextField(null=True)
-	coapp_ban_acc=models.TextField(null=True)
-	applicant_ifsc=models.TextField(null=True)
-	coapp_ifsc=models.TextField(null=True)
+	applicant_bank_acc=models.CharField(max_length=255,default='')
+	coapp_ban_acc=models.CharField(max_length=255,default='')
+	applicant_ifsc=models.CharField(max_length=255,default='')
+	coapp_ifsc=models.CharField(max_length=255,default='')
 	applicant_entity=models.TextField(null=True)
 	coapp_entity=models.TextField(null=True)
 	sales_approve=models.CharField(max_length=50,default='false')
+	sales_remarks=models.TextField(null=True)
 	credit_approve=models.CharField(max_length=50,default='false')
+	credit_remarks=models.TextField(null=True)
 	form_status=models.CharField(max_length=255,default='false')
+
+	loan_fig=models.CharField(max_length=255,default='')
+	emi_amt=models.CharField(max_length=255,default='')
+	month=models.CharField(max_length=255,default='')
+	emi_date=models.DateField(blank=True,null=True)
+	g_tenure=models.CharField(max_length=255,default='')
+	p_fee=models.CharField(max_length=255,default='')
+	start_date=models.DateField(blank=True,null=True)
+	b_date=models.DateField(blank=True,null=True)
+	net_tenure=models.CharField(max_length=255,default='')
+	end_date=models.DateField(blank=True,null=True)
+	roi=models.CharField(max_length=255,default='')
+	words=models.CharField(max_length=1000,default='')
+	num_adv=models.CharField(max_length=255,default='')
+	com_emi=models.CharField(max_length=255,default='')
+	adv_emi_rs=models.CharField(max_length=255,default='')
+	date_subemi=models.DateField(blank=True,null=True)
+	file_name=models.CharField(max_length=1000,default='')
+
+	Process_fee_id=models.CharField(max_length=255,default='')
+	Process_status=models.CharField(max_length=255,default='')
+
+	enach_status=models.CharField(max_length=255,default='')
+	subId=models.CharField(max_length=255,default='')
+
+	esign_status=models.CharField(max_length=255,default='')
+	esignId=models.CharField(max_length=255,default='')
+
 
 	'''
 	no_of_advance_emi=models.CharField(max_length=50,null=True)

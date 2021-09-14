@@ -22,8 +22,8 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
 
 
 		email=user_data['email']
-		first_name='jj'
-		last_name='kk'
+		first_name=user_data['name'].split(" ")[0]
+		last_name=' '.join([str(i) for i in user_data['name'].split(" ")[1:]])
 		phone='not added'
 
 		return register_user(email=email,first_name=first_name,last_name=last_name,phone=phone)
