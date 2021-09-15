@@ -90,10 +90,13 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'los_main',
+        'NAME': 'webapp',
         'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
+            'host': 'mongodb',
+            'username': 'admin',
+            'password': 'password',
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1'
         }
     }
 }
