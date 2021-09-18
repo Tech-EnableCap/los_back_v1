@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # Create your models here.
 
 def fileName(instance,fileName):
-	return '/'.join(['files',str(instance.email),fileName])
+	return 'media/'.join(['files',str(instance.email),fileName])
 
 class UserAccountManager(BaseUserManager):
 	def create_user(self,email,first_name,last_name,phone,password=None):

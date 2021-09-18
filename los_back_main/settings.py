@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-gmc(#xl$g_3j_t3%&5z$6l*y70(z)h4y%0=x1442@z=h=9g98y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.235.134.207']
 
 
 # Application definition
@@ -90,12 +90,12 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'webapp',
+        'NAME': 'los_main',
         'CLIENT': {
             'host': 'mongodb',
-            'username': 'admin',
-            'password': 'password',
-            'authSource': 'admin',
+            'username': ,
+            'password': ,
+            'authSource': ,
             'authMechanism': 'SCRAM-SHA-1'
         }
     }
@@ -143,8 +143,8 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'build/static')
 ]
 
-MEDIA_URL='s3://los-upl-data/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+#MEDIA_URL='/media/'
+#MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 REST_FRAMEWORK={
     
@@ -164,8 +164,8 @@ SIMPLE_JWT={
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
-EMAIL_HOST_USER='chagol112233@gmail.com' 
-EMAIL_HOST_PASSWORD='qwe@12345'
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
 EMAIL_USE_TLS=True
 
 CORS_ORIGIN_ALLOW_ALL=True
@@ -182,3 +182,10 @@ ADMIN_SITE_HEADER="EnableCap Admin"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 
+AWS_SECRET_ACCESS_KEY = 
+AWS_STORAGE_BUCKET_NAME = 
+AWS_QUERYSTRING_AUTH = False
